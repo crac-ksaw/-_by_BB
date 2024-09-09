@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo_our.png" alt="Virtual Herbal Garden Logo">
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#garden">Virtual Garden</a></li>
+                <li><a href="word-scrambler.html" class="active">Play Game</a></li> <!-- Active page -->
+                <li><a href="index.html#about">About AYUSH</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="section word-scrambler-section">
+            <h1>Word Scrambler</h1>
+            <p>Unscramble the letters to form the correct word!</p>
+            <div class="scrambler-container">
+                <div id="scrambled-word" class="scrambled-word">EDRNAG</div>
+                <input type="text" id="user-input" placeholder="Enter your guess..." />
+                <button id="check-answer-btn">Check Answer</button>
+                <p id="result-message"></p>
+                <button id="new-word-btn">New Word</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>All rights reserved by BYTE BURSTERS of बगीचा</p>
+    </footer>
+
+    <script>
+        // JavaScript for the Word Scrambler functionality
+
+        const words = ['GARDEN', 'HERB', 'PLANT', 'AYURVEDA', 'MEDICINE']; // List of words to scramble
+        let currentWord = '';
+        let scrambledWord = '';
+
+        // Function to scramble a word
+        function scrambleWord(word) {
+            const scrambled = word.split('').sort(() => Math.random() - 0.5).join('');
+            return scrambled;
+        }
+
+        // Function to set a new scrambled word
+        function setNewScrambledWord() {
+            currentWord = words[Math.floor(Math.random() * words.length)];
+            scrambledWord = scrambleWord(currentWord);
+            document.getElementById('scrambled-word').textContent = scrambledWord;
+            document.getElementById('result-message').textContent = '';
+            document.getElementById('user-input').value = '';
+        }
+
+        // Check the user's input
+        function checkAnswer() {
+            const userInput = document.getElementById('user-input').value.toUpperCase();
+            const resultMessage = document.getElementById('result-message');
+            if (userInput === currentWord) {
+                resultMessage.textContent = 'Correct! 🎉';
+                resultMessage.style.color = 'green';
+            } else {
+                resultMessage.textContent = 'Try again! ❌';
+                resultMessage.style.color = 'red';
+            }
+        }
+
+        // Event listeners
+        document.getElementById('check-answer-btn').addEventListener('click', checkAnswer);
+        document.getElementById('new-word-btn').addEventListener('click', setNewScrambledWord);
+
+        // Initialize the first scrambled word
+        window.onload = setNewScrambledWord;
+    </script>
+</body>
+</html>
